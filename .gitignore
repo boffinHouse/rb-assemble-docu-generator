@@ -4,13 +4,12 @@ dist
 dev
 doc
 tmp
+.idea
 bower_components
-styleguide
 
 .sass-cache
 .css
 
-.idea
 .DS_Store
 Gemfile.lock
 *.bat
