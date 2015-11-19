@@ -1,0 +1,11 @@
+---
+title: Home
+heading:  'Styleguide'
+posts: ['README.md']
+---
+<div class="container">
+  {{#each posts}}
+    {{{md this}}}
+    <hr>
+  {{/each}}
+</div>
