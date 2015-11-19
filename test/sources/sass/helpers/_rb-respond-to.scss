@@ -1,0 +1,26 @@
+// .colors(@bg, @color)
+//
+// Applies foreground and background colors.
+//
+// @bg - Background color; defaults to `#f5f5f5`.
+// @color - Foreground color; defaults to `#900`.
+//
+// Style guide: demo.mixins.example
+@mixin rb-respond-to($breakpoint) {
+	@if map-has-key($breakpointConfigs, $breakpoint) {
+		$breakpointData: map-get($breakpointConfigs, $breakpoint);
+		$breakpointMedia: map-get($breakpointData, media);
+
+		@if($breakpoint == 'all') {
+			@content;
+		}
+		@else {
+			@media #{$breakpointMedia} {
+				@content;
+			}
+		}
+	}
+	@else {
+		@warn "Value #{$breakpoint} not found in $breakpoint-configs"
+	}
+}

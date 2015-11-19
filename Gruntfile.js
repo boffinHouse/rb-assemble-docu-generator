@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         node: true,
         loopfunc: true
       },
-      all: ['Gruntfile.js', 'index.js', './lib/**/.js']
+      all: ['index.js']
     },
     assemble: {
       options: {
@@ -46,13 +46,37 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'test/sources/assemble/docu',
-          src: ['**/*.hbs'],
+          src: ['**/*.hbs', '!documentation.hbs'],
           dest: 'test/dist'
         }]
       }
     },
     clean: {
       actual: ['test/dist'],
+	  scssglobbing: {
+		src: 'test/sources/sass/tmp_*.scss'
+	  }
+    },
+    scssglobbing: {
+      options: {
+
+      },
+      main: {
+        files: {
+          src: 'test/sources/sass/__*.scss',
+        }
+      }
+    },
+    sass: {
+      options: {
+        outputStyle: 'nested',
+        sourceMap: false
+      },
+      dist: {
+	      files: {
+		      'test/dist/css/styles.css': 'test/sources/sass/tmp_styles.scss'
+	      },
+      }
     },
 
     connect: {
@@ -72,7 +96,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-scssglobbing');
 
-  grunt.registerTask('default', ['jshint', 'clean', 'assemble']);
+  grunt.registerTask('default', ['jshint', 'clean', 'scssglobbing', 'sass', 'assemble', 'clean:scssglobbing']);
 
 };

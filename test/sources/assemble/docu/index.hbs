@@ -3,9 +3,18 @@ title: Home
 heading:  'Styleguide'
 posts: ['README.md']
 ---
-<div class="container">
-  {{#each posts}}
-    {{{md this}}}
-    <hr>
-  {{/each}}
+
+<div class="rb-page-section">
+	<div class="page-section-inner">
+		<div class="is-column-group is-gutters">
+			<div class="is-size-70">
+				{{#each posts}}
+					{{{md this}}}
+				{{/each}}
+			</div>
+			<div class="is-size-30">
+				{{> sub-navigation }}
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,0 +1,26 @@
+$grid-max-width: 1600px;
+$breakpointConfigs: (
+	all: (
+		gutter: (
+			vertical: 40px,
+			horizontal: 40px
+		),
+		flex-order-amount: 5
+	),
+	l: (
+		media:'(min-width: 1240px)',
+	),
+	m: (
+		media:'(min-width: 569px) and (max-width: 1239px)',
+		flex-order-amount: 2
+	),
+	s: (
+		media: '(max-width: 568px)',
+		gutter: (
+			vertical: 20px,
+			horizontal: 20px
+		)
+	)
+);
+$asideBreakpoints: ();
+

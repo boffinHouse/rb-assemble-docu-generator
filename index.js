@@ -22,7 +22,6 @@ module.exports = function(params, fn) {
 
 		if(err) {return fn(err);}
 
-
 		//Check if options.src is an directory
 		if(!fs.lstatSync(kssOptions.src).isDirectory()) {
 			return fn(new Error('"' + kssOptions.src + '" is not a directory'));
@@ -36,7 +35,6 @@ module.exports = function(params, fn) {
 			});
 		});
 	});
-
 
 	/**
 	 * Generate static html files from KSS documentation with assemble
@@ -62,14 +60,14 @@ module.exports = function(params, fn) {
 		sections.forEach(function(section, i) {
 			var mainSection = section.reference().match(/[0-9]*\.?/)[0].replace('.', '');
 
+			console.log(section.reference());
+
 			if(!~mainSections.indexOf(mainSection)) {
 				mainSections.push(mainSection);
 			}
 		});
 
 		mainSections.sort();
-
-		//console.log(assemble.options.collections.pages.items[0].pages);
 
 		mainSections.forEach(function(section, i) {
 			var mainSection = kssData.section(section);
@@ -95,11 +93,10 @@ module.exports = function(params, fn) {
 			//add KSS data to assemble
 			assembleCollections.pages.items[0].pages.push(pageObj);
 
-			console.log(assembleCollections.pages.items[0].pages);
+			//console.log(assembleCollections.pages.items[0].pages);
 
 
 			_(assembleCollections).forEach(function(item, i) {
-				console.log(i);
 
 				//assembleCollections[i] = assemble.util.update(item, pageObj, pageContext);
 			});
@@ -150,8 +147,6 @@ module.exports = function(params, fn) {
 		});
 	}
 };
-
-
 
 module.exports.options = {
   stage: 'assemble:post:pages'
