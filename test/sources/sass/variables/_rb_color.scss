@@ -30,12 +30,18 @@ Button Baby
 
 Your standard button suitable for clicking.
 
-:hover    - Highlights when hovering.
-:disabled - Dims the button when disabled.
-.primary  - Indicates button is the primary action.
-.smaller  - A little bit smaller now.
+Markup:
+<button type="button" class="btn btn-default">Default</button>
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-link">Link</button>
 
-Styleguide 2.3
+
+
+Styleguide tab.
 */
 
 
@@ -44,10 +50,15 @@ Button Hello
 
 Your standard button suitable for clicking.
 
+
+Markup:
+<button class="button {{modifier_class}}">
+
 :hover    - Highlights when hovering.
 :disabled - Dims the button when disabled.
 .primary  - Indicates button is the primary action.
 .smaller  - A little bit smaller now.
+
 
 Styleguide 2.1
 */
@@ -70,10 +81,29 @@ Tabtree
 
 Your standard button suitable for clicking.
 
-:hover    - Highlights when hovering.
-:disabled - Dims the button when disabled.
-.primary  - Indicates button is the primary action.
-.smaller  - A little bit smaller now.
+<button type="button" class="btn btn-default">Default</button>
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-link">Link</button>
 
-Styleguide 3
+Styleguide Tabtree
+*/
+
+/*
+Tabtree.hello
+
+Your standard button suitable for clicking.
+
+<button type="button" class="btn btn-default">Default</button>
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-link">Link</button>
+
+Styleguide Tabtree.hello
 */

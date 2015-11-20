@@ -9,13 +9,17 @@ var kss = require('kss');
 var _ = require('lodash-node');
 var inflection = require('inflection');
 var matter = require('gray-matter');
+var utils = require('lib/utils');
+
 
 module.exports = function(params, fn) {
 	var grunt = params.grunt;
 	var assemble = params.assemble;
 	var kssOptions = assemble.options.kssnode || {};
 
+
 	console.log('Running "assemble-docu-generator" plugin...');
+
 
 
 	fs.readFile(kssOptions.page, 'utf8', function(err, data) {
@@ -26,6 +30,7 @@ module.exports = function(params, fn) {
 		if(!fs.lstatSync(kssOptions.src).isDirectory()) {
 			return fn(new Error('"' + kssOptions.src + '" is not a directory'));
 		}
+
 
 		kss.traverse(kssOptions.src, {mask: kssOptions.mask || '*.css'}, function(err, kssData) {
 			assembleDocumentation(assemble, data, kssData, kssOptions, function(err, data) {
@@ -43,38 +48,45 @@ module.exports = function(params, fn) {
 	 * @param {String} page Handlebars layout content.
 	 * @param {Object} kssData KSS Node Styleguide collection.
 	 * @param {Object} options Options.
-	 * @param {Function} fn Callback.
+	 * @param {Function} next Callback.
 	 */
-	function assembleDocumentation(assemble, page, kssData, options, fn) {
+	function assembleDocumentation(assemble, page, kssData, options, next) {
 		var pageObj;
 		var sections = kssData.section();
-		var mainSections = [];
+		var sectionRoots = [];
 		var pages = {};
 		var parsedPage = matter(page);
 
+
+		utils.createDataLookup(options.dest, 'assemble-newdata', page);
+		fs.writeFile(options.dest + '/assemble-data.json', JSON.stringify(page,null, 2), function() {
+			console.log("arguments", arguments);
+		});
+
 		if(!sections.length) {
-			return fn(new Error('No KSS documentation is found in source files.'));
+			return next(new Error('No KSS documentation is found in source files.'));
 		}
 
 		//Gather all of the sections first indexes in case they don't have a main element.
 		sections.forEach(function(section, i) {
-			var mainSection = section.reference().match(/[0-9]*\.?/)[0].replace('.', '');
+			var rootSection = section.reference().match(/[0-9]*[a-zA-z]*\.?/)[0].replace('.', '');
 
-			console.log(section.reference());
+			fs.writeFile(options.dest + '/kss-section-' + i +'.json', JSON.stringify(section,null, 2), function() {});
 
-			if(!~mainSections.indexOf(mainSection)) {
-				mainSections.push(mainSection);
+			//Check if rootSection already exist
+			if(!~sectionRoots.indexOf(rootSection)) {
+				sectionRoots.push(rootSection);
 			}
 		});
 
-		mainSections.sort();
+		sectionRoots.sort();
 
-		mainSections.forEach(function(section, i) {
-			var mainSection = kssData.section(section);
+		sectionRoots.forEach(function(section, i) {
+			var sectionRoot = kssData.section(section);
 			var pageContext = _.clone(parsedPage.data, true);
 			var childSections = [];
 			//Todo change this to error if no title is found
-			var sectionTitle = (typeof mainSection.header === 'function') ? mainSection.header() : '';
+			var sectionTitle = (typeof sectionRoot.header === 'function') ? sectionRoot.header() : '';
 			var assembleCollections = assemble.options.collections;
 			childSections  = kssData.section(section + '.*');
 
@@ -82,8 +94,8 @@ module.exports = function(params, fn) {
 			pageObj = {
 				data: _.extend(pageContext, {
 					sections: getDataSections(childSections),
-					mainSectionNumber: section,
-					mainSections: mainSections,
+					sectionRootNumber: section,
+					sectionRoots: sectionRoots,
 					title: sectionTitle
 				}),
 				dest: options.dest + '/documentation-' + sectionTitle.toLowerCase() + '.html',
@@ -93,16 +105,13 @@ module.exports = function(params, fn) {
 			//add KSS data to assemble
 			assembleCollections.pages.items[0].pages.push(pageObj);
 
-			//console.log(assembleCollections.pages.items[0].pages);
-
-
-			_(assembleCollections).forEach(function(item, i) {
-
-				//assembleCollections[i] = assemble.util.update(item, pageObj, pageContext);
-			});
+			//_(assembleCollections).forEach(function(item, i) {
+			//
+			//	assembleCollections[i] = assemble.util.update(item, pageObj, pageContext);
+			//});
 		});
 
-		return fn();
+		return next();
 	}
 
 	/**
@@ -151,3 +160,6 @@ module.exports = function(params, fn) {
 module.exports.options = {
   stage: 'assemble:post:pages'
 };
+
+
+

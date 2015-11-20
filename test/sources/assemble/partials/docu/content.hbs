@@ -9,10 +9,14 @@ component: content
     {{{description}}}
   </div>
   {{/if}}
+	{{{modifierMarkup}}}
   {{#if markup}}
     {{#each modifiers}}
         {{{description}}}
-        {{{modifierMarkup}}}
+	    <ul>
+		    <li>{{{modifierMarkup}}}</li>
+	    </ul>
+
         <hr>
     {{/each}}
     <pre><code class="html">{{markup}}</code></pre>
