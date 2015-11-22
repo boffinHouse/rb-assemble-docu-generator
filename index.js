@@ -12,17 +12,29 @@ var matter = require('gray-matter');
 
 
 
-var LivingStyleguide = function(params, next) {
+var livingStyleguide = function(params, next) {
 	var grunt = params.grunt;
 	var assemble = params.assemble;
+	var kssOptions = assemble.options.kssnode || {};
+
+	this.readNewFile();
 
 
+	fs.readFile(kssOptions.src, 'utf8', function() {
+
+	});
 
 	next();
+};
+
+livingStyleguid.prototype = {
+	readNewFile: function() {
+		console.log('hello');
+	}
 };
 
 //LivingStyleguide.readFile = function() {
 //	console.log(this.assemble);
 //};
 
-module.exports = exports = LivingStyleguide;
+module.exports = exports = livingStyleguide;
