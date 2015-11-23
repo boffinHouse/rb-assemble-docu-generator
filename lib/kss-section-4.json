@@ -1,0 +1,22 @@
+{
+  "header": "Button",
+  "description": "<p>Your standard button suitable for clicking.</p>\n",
+  "deprecated": false,
+  "experimental": false,
+  "reference": "button",
+  "depth": 1,
+  "weight": 0,
+  "referenceURI": "button",
+  "markup": false,
+  "modifiers": [],
+  "parameters": [
+    {
+      "name": ":hover",
+      "description": "Highlights when hovering."
+    },
+    {
+      "name": ".shiny",
+      "description": "Do not press this big, shiny, red button."
+    }
+  ]
+}

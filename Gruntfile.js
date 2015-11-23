@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         curly: false,
         eqeqeq: true,
         immed: true,
-        latedef: true,
+        latedef: false,
         newcap: true,
         noarg: true,
         sub: true,
@@ -24,7 +24,8 @@ module.exports = function(grunt) {
         boss: true,
         eqnull: true,
         node: true,
-        loopfunc: true
+        loopfunc: true,
+	      esnext: true
       },
       all: ['index.js']
     },

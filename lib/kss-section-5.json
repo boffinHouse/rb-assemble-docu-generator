@@ -1,0 +1,22 @@
+{
+  "header": ".colors(@bg, @color)",
+  "description": "<p>Applies foreground and background colors.</p>\n",
+  "deprecated": false,
+  "experimental": false,
+  "reference": "demo.mixins.example",
+  "depth": 3,
+  "weight": 0,
+  "referenceURI": "demo-mixins.example",
+  "markup": false,
+  "modifiers": [],
+  "parameters": [
+    {
+      "name": "@bg",
+      "description": "Background color; defaults to <code>#f5f5f5</code>."
+    },
+    {
+      "name": "@color",
+      "description": "Foreground color; defaults to <code>#900</code>."
+    }
+  ]
+}

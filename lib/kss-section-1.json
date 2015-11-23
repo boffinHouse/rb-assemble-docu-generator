@@ -1,0 +1,30 @@
+{
+  "header": "Button",
+  "description": "<p>Your standard button suitable for clicking.</p>\n",
+  "deprecated": false,
+  "experimental": false,
+  "reference": "2",
+  "depth": 1,
+  "weight": 0,
+  "referenceURI": "2",
+  "markup": false,
+  "modifiers": [],
+  "parameters": [
+    {
+      "name": ":hover",
+      "description": "Highlights when hovering."
+    },
+    {
+      "name": ":disabled",
+      "description": "Dims the button when disabled."
+    },
+    {
+      "name": ".primary",
+      "description": "Indicates button is the primary action."
+    },
+    {
+      "name": ".smaller",
+      "description": "A little bit smaller now."
+    }
+  ]
+}
