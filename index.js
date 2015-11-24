@@ -4,11 +4,13 @@
 
 'use strict';
 
-const fs = require('fs-extra');
 const kss = require('kss');
 const _ = require('lodash-node');
 const inflection = require('inflection');
 const matter = require('gray-matter');
+const promise = require('bluebird');
+const fs = promise.promisifyAll(require('fs-extra'));
+
 
 
 function livingStyleguide(params, next)  {
@@ -18,16 +20,21 @@ function livingStyleguide(params, next)  {
 	const kssOptions = assemble.options.kssnode;
 	let parsedPage = fs.readFileSync(kssOptions.page, 'utf8');
 
+
+	fs.readFileAsync(kssOptions.page, 'utf8')
+		.then(function(data) {
+			console.log(data);
+		});
 	//Check if options.src is an directory
 	if(!fs.lstatSync(kssOptions.src).isDirectory()) {
 		return next(new Error('"' + kssOptions.src + '" is not a directory'));
 	}
 
-	kss.traverse(kssOptions.src, {mask: kssOptions.mask || '.css'}, (err, kssData) => {
-		getRootSections(kssData);
-
-		return next();
-	});
+	//kss.traverse(kssOptions.src, {mask: kssOptions.mask || '.css'}, (err, kssData) => {
+	//	getRootSections(kssData);
+	//
+	//	return next();
+	//});
 
 
 	//Gather all of the sections first indexes in case they don't have a main element.
@@ -56,11 +63,11 @@ function livingStyleguide(params, next)  {
 
 		rootSections.forEach((section, i) => {
 			var sectionRoot = kssData.section(section);
-			var pageContext = _.clone(parsedPage.data, true);
+			//var pageContext = _.clone(parsedPage.data, true);
 			var assembleCollections = assemble.options.collections;
 			var childSections =  kssData.section(section + '.*');
 
-			console.log(pageContext);
+
 		});
 	};
 
@@ -68,6 +75,4 @@ function livingStyleguide(params, next)  {
 
 
 
-module.exports = exports = function(){
-	return new Bla(argument1, arguments2):
-};
+module.exports = exports = livingStyleguide;
